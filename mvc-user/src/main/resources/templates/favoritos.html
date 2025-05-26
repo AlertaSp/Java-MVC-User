@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{usuario.favoritos.titulo}">Meus Córregos Favoritos</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        header {
+            background-color: #1e3c72;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .language-bar {
+            font-size: 0.9rem;
+        }
+
+        .language-bar a {
+            color: #fff;
+            margin: 0 0.5rem;
+            text-decoration: none;
+        }
+
+        .language-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            padding: 2rem;
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        .checkbox-list label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-salvar, .btn-voltar {
+            background-color: #28a745;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .btn-voltar {
+            background-color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1 th:text="#{usuario.favoritos.titulo}">Meus Córregos Favoritos</h1>
+    <div class="language-bar">
+        🌐 <a th:href="@{'?lang=pt_BR'}">Português</a> |
+        <a th:href="@{'?lang=en'}">English</a> |
+        <a th:href="@{'?lang=es'}">Español</a>
+    </div>
+</header>
+
+<div class="container">
+    <h2 th:text="#{usuario.favoritos.subtitulo}">Selecione os córregos que deseja acompanhar:</h2>
+
+    <form th:action="@{/usuario/favoritos/salvar}" method="post">
+        <div class="checkbox-list">
+            <label th:each="corrego : ${corregos}">
+                <input type="checkbox" th:name="favoritos" th:value="${corrego.id}" th:checked="${corrego.favorito}">
+                <span th:text="${corrego.nome}">Córrego A</span>
+            </label>
+        </div>
+
+        <button type="submit" class="btn-salvar" th:text="#{usuario.favoritos.salvar}">Salvar</button>
+        <a th:href="@{/usuario/dashboard}" class="btn-voltar" th:text="#{usuario.favoritos.voltar}">Voltar</a>
+    </form>
+</div>
+</body>
+</html>

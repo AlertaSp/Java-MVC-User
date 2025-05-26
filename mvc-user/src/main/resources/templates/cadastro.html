@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{usuario.registro.titulo}">Cadastro de Usuário</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #00416a, #e4e5e6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 2rem 3rem;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+        }
+
+        .language-bar {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 0.9rem;
+        }
+
+        .language-bar a {
+            color: #1e3c72;
+            margin: 0 0.3rem;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .language-bar a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #1e3c72;
+        }
+
+        label {
+            display: block;
+            margin: 0.5rem 0 0.2rem;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-salvar {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-salvar:hover {
+            background-color: #218838;
+        }
+
+        .btn-cancelar {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-cancelar:hover {
+            background-color: #5a6268;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .success {
+            color: green;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function validarFormulario(event) {
+            const senha = document.getElementById('senha').value;
+            const confirmar = document.getElementById('confirmarSenha').value;
+            const erro = document.getElementById('erroSenha');
+            if (senha !== confirmar) {
+                erro.textContent = 'As senhas não coincidem';
+                event.preventDefault();
+            } else {
+                erro.textContent = '';
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="language-bar">
+        🌐 <a th:href="@{'?lang=pt_BR'}">Português</a> |
+        <a th:href="@{'?lang=en'}">English</a> |
+        <a th:href="@{'?lang=es'}">Español</a>
+    </div>
+
+    <h1 th:text="#{usuario.registro.titulo}">Cadastro de Usuário</h1>
+
+    <div th:if="${sucesso}" class="success" th:text="#{usuario.registro.sucesso}">Cadastro realizado com sucesso!</div>
+    <div th:if="${erroEmail}" class="error" th:text="#{usuario.registro.erroEmail}">E-mail já cadastrado.</div>
+
+    <form th:action="@{/usuario/registro}" method="post" th:object="${usuario}" onsubmit="validarFormulario(event)">
+        <label th:text="#{usuario.nome}">Nome</label>
+        <input type="text" th:field="*{usuario.nome}" required>
+
+        <label th:text="#{usuario.sobrenome}">Sobrenome</label>
+        <input type="text" th:field="*{usuario.sobrenome}" required>
+
+        <label th:text="#{usuario.email}">E-mail</label>
+        <input type="email" th:field="*{usuario.email}" required>
+
+        <label th:text="#{usuario.telefone}">Telefone</label>
+        <input type="text" th:field="*{usuario.telefone}" required>
+
+        <label th:text="#{usuario.senha}">Senha</label>
+        <input type="password" id="senha" th:field="*{usuario.senha}" required>
+
+        <label th:text="#{usuario.confirmarSenha}">Confirmar Senha</label>
+        <input type="password" id="confirmarSenha" required>
+
+        <div class="error" id="erroSenha"></div>
+
+        <div class="btn-container">
+            <button type="submit" class="btn btn-salvar" th:text="#{usuario.registro.salvar}">Cadastrar</button>
+            <a th:href="@{/usuario/login}" class="btn btn-cancelar" th:text="#{usuario.registro.cancelar}">Cancelar</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

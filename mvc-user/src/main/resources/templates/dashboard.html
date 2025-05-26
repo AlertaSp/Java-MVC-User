@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{usuario.dashboard.titulo}">Dashboard do Usuário</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        header {
+            background-color: #1e3c72;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            background: white;
+            height: 3px;
+            margin: 5px 0;
+            width: 25px;
+        }
+
+        nav {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .language-bar {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .language-bar a {
+            color: #fff;
+            margin: 0 0.5rem;
+            text-decoration: none;
+        }
+
+        .language-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            padding: 2rem;
+        }
+
+        .btn-sair {
+            background-color: #6c757d;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+            nav {
+                display: none;
+                flex-direction: column;
+                background-color: #1e3c72;
+                width: 100%;
+                padding: 1rem;
+            }
+            nav.show {
+                display: flex;
+            }
+        }
+    </style>
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('nav');
+            nav.classList.toggle('show');
+        }
+    </script>
+</head>
+<body>
+<header>
+    <div style="display: flex; align-items: center;">
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+        <h1 style="margin-left: 1rem;" th:text="#{usuario.dashboard.titulo}">Dashboard - Alerta SP</h1>
+    </div>
+    <nav>
+        <a th:href="@{/dashboard}" th:text="#{menu.dashboard}">Dashboard</a>
+        <a th:href="@{/alertas}" th:text="#{menu.alertas}">Alertas Recebidos</a>
+        <a th:href="@{/favoritos}" th:text="#{menu.favoritos}">Meus Córregos Favoritos</a>
+        <a th:href="@{/templates/meus_dados.html}" th:text="#{menu.meus_dados}">Meus Dados</a>
+    </nav>
+    <div class="language-bar">
+        🌐 <a th:href="@{'?lang=pt_BR'}">Português</a> |
+        <a th:href="@{'?lang=en'}">English</a> |
+        <a th:href="@{'?lang=es'}">Español</a>
+    </div>
+    <a th:href="@{/}" class="btn-sair" th:text="#{dashboard.sair}">Sair</a>
+</header>
+
+<div class="container">
+    <h2 th:text="#{usuario.dashboard.boasVindas}">Bem-vindo ao seu painel!</h2>
+    <p th:text="#{usuario.dashboard.resumo}">Aqui você verá seus alertas mais recentes e o status dos córregos que acompanha.</p>
+</div>
+</body>
+</html>
