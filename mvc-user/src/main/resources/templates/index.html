@@ -133,12 +133,6 @@
         <button type="submit" class="btn-primary" th:text="#{usuario.login.entrar}">Entrar</button>
     </form>
 
-    <p th:text="#{usuario.login.github}">Ou entre com:</p>
-    <a th:href="@{/oauth2/authorization/github}" class="btn-github">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
-        GitHub
-    </a>
-
     <a th:href="@{/usuario/registro}" class="btn-register" th:text="#{usuario.login.registrar}">Ou cadastre-se</a>
 </div>
 </body>
