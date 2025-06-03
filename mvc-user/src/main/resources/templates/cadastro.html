@@ -143,23 +143,27 @@
 
     <form th:action="@{/usuario/registro}" method="post" th:object="${usuario}" onsubmit="validarFormulario(event)">
         <label th:text="#{usuario.nome}">Nome</label>
-        <input type="text" th:field="*{usuario.nome}" required>
+        <input type="text" th:field="*{nome}" required>
+        <div class="error" th:errors="*{nome}"></div>
 
         <label th:text="#{usuario.sobrenome}">Sobrenome</label>
-        <input type="text" th:field="*{usuario.sobrenome}" required>
+        <input type="text" th:field="*{sobrenome}" required>
+        <div class="error" th:errors="*{sobrenome}"></div>
 
         <label th:text="#{usuario.email}">E-mail</label>
-        <input type="email" th:field="*{usuario.email}" required>
+        <input type="email" th:field="*{email}" required>
+        <div class="error" th:errors="*{email}"></div>
 
         <label th:text="#{usuario.telefone}">Telefone</label>
-        <input type="text" th:field="*{usuario.telefone}" required>
+        <input type="text" th:field="*{telefone}" required>
+        <div class="error" th:errors="*{telefone}"></div>
 
         <label th:text="#{usuario.senha}">Senha</label>
-        <input type="password" id="senha" th:field="*{usuario.senha}" required>
+        <input type="password" id="senha" th:field="*{senha}" required>
+        <div class="error" th:errors="*{senha}"></div>
 
         <label th:text="#{usuario.confirmarSenha}">Confirmar Senha</label>
         <input type="password" id="confirmarSenha" required>
-
         <div class="error" id="erroSenha"></div>
 
         <div class="btn-container">
@@ -168,16 +172,14 @@
         </div>
     </form>
 
-    <script>
+    <script th:inline="javascript">
         const sucesso = /*[[${sucesso}]]*/ false;
         if (sucesso) {
             setTimeout(() => {
-                window.location.href = '/usuario/login';
+                window.location.href = /*[[@{/usuario/login}]]*/ '/usuario/login';
             }, 2000);
         }
     </script>
-
-
 </div>
 </body>
 </html>

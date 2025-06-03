@@ -27,10 +27,10 @@ public class UsuarioDadosController {
         Usuario usuario = usuarioRepository.findByEmail(principal.getName())
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 
-        model.addAttribute("email", usuario.getEmail());
-        model.addAttribute("telefone", usuario.getTelefone());
+        model.addAttribute("usuario", usuario);
         return "meus_dados";
     }
+
 
     @PostMapping("/atualizar")
     public String atualizarDados(@RequestParam("email") String email,

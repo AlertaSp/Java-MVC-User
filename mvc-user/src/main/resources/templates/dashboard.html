@@ -119,15 +119,14 @@
         <a th:href="@{/usuario/favoritos}" th:text="#{menu.favoritos}">Meus Córregos</a>
         <a th:href="@{/usuario/dados}" th:text="#{menu.meus_dados}">Meus Dados</a>
     </nav>
-    <form th:action="@{/logout}" method="post">
-        <button type="submit" class="btn-sair" th:text="#{dashboard.sair}">Sair</button>
-    </form>
     <div class="language-bar">
         🌐 <a th:href="@{'?lang=pt_BR'}">Português</a> |
         <a th:href="@{'?lang=en'}">English</a> |
         <a th:href="@{'?lang=es'}">Español</a>
     </div>
-    <a th:href="@{/}" class="btn-sair" th:text="#{dashboard.sair}">Sair</a>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn-sair" th:text="#{dashboard.sair}">Sair</button>
+    </form>
 </header>
 
 <div class="container">

@@ -2,7 +2,9 @@ package com.alerta_sp.mvc_user.controller;
 
 import com.alerta_sp.mvc_user.dto.UsuarioDTO;
 import com.alerta_sp.mvc_user.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
@@ -29,18 +31,23 @@ public class UsuarioAuthController {
     }
 
     @PostMapping("/registro")
-    public String processarCadastro(@ModelAttribute("usuario") UsuarioDTO usuario,
+    public String processarCadastro(@ModelAttribute("usuario") @Valid UsuarioDTO usuario,
+                                    BindingResult result,
                                     RedirectAttributes redirectAttributes) {
 
         if (usuarioService.emailJaCadastrado(usuario.getEmail())) {
-            redirectAttributes.addFlashAttribute("erroEmail", true);
-            return "redirect:/usuario/registro";
+            result.rejectValue("email", "error.usuario", "E-mail já cadastrado");
         }
 
-        usuario.setTelefone(usuario.getTelefone().replaceAll("[^\\d]", "")); // Remove máscara
+        if (result.hasErrors()) {
+            return "cadastro";
+        }
+
+        usuario.setTelefone(usuario.getTelefone().replaceAll("[^\\d]", ""));
         usuarioService.cadastrarUsuario(usuario);
         redirectAttributes.addFlashAttribute("sucesso", true);
 
-        return "redirect:/usuario/registro"; // para exibir a mensagem antes de redirecionar via JS
+        return "redirect:/usuario/registro";
     }
+
 }

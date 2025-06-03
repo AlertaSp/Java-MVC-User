@@ -23,6 +23,9 @@ public class Corrego {
     @Column(name = "nivel_critico")
     private Double nivelCritico;
 
+    @Transient
+    private boolean favorito; // <-- usado apenas para exibir na view
+
     // Getters e Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -41,4 +44,7 @@ public class Corrego {
 
     public Double getNivelCritico() { return nivelCritico; }
     public void setNivelCritico(Double nivelCritico) { this.nivelCritico = nivelCritico; }
+
+    public boolean isFavorito() { return favorito; }
+    public void setFavorito(boolean favorito) { this.favorito = favorito; }
 }

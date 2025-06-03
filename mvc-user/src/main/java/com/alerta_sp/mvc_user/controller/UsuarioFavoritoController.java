@@ -1,5 +1,6 @@
 package com.alerta_sp.mvc_user.controller;
 
+import com.alerta_sp.mvc_user.dto.CorregoFavoritoDTO;
 import com.alerta_sp.mvc_user.model.Corrego;
 import com.alerta_sp.mvc_user.model.Usuario;
 import com.alerta_sp.mvc_user.repository.CorregoRepository;
@@ -39,8 +40,15 @@ public class UsuarioFavoritoController {
         Set<Long> favoritos = favoritoService.listarIdsCorregosFavoritos(usuario.getId())
                 .stream().collect(Collectors.toSet());
 
-        corregos.forEach(c -> c.setFavorito(favoritos.contains(c.getId())));
-        model.addAttribute("corregos", corregos);
+        List<CorregoFavoritoDTO> dtos = corregos.stream().map(c -> {
+            CorregoFavoritoDTO dto = new CorregoFavoritoDTO();
+            dto.setId(c.getId());
+            dto.setNome(c.getNome());
+            dto.setFavorito(favoritos.contains(c.getId()));
+            return dto;
+        }).collect(Collectors.toList());
+
+        model.addAttribute("corregos", dtos);
         return "favoritos";
     }
 

@@ -11,24 +11,10 @@ public class UsuarioDashboardController {
         return "dashboard";
     }
 
-    @GetMapping("/usuario/alertas")
-    public String exibirAlertasRecebidos() {
-        return "alertas";
-    }
-
-    @GetMapping("/usuario/favoritos")
-    public String exibirFavoritos() {
-        return "favoritos";
-    }
-
-    @GetMapping("/usuario/dados")
-    public String exibirMeusDados() {
-        return "meus_dados";
-    }
-
     @GetMapping("/usuario/logout")
     public String logout() {
         return "redirect:/usuario/login";
     }
-
 }
+
+
