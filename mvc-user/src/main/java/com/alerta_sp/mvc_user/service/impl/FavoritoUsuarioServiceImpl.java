@@ -1,13 +1,14 @@
 package com.alerta_sp.mvc_user.service.impl;
 
+import com.alerta_sp.mvc_user.model.Corrego;
 import com.alerta_sp.mvc_user.model.FavoritoUsuario;
 import com.alerta_sp.mvc_user.model.FavoritoUsuarioId;
 import com.alerta_sp.mvc_user.model.Usuario;
-import com.alerta_sp.mvc_user.model.Corrego;
+import com.alerta_sp.mvc_user.repository.CorregoRepository;
 import com.alerta_sp.mvc_user.repository.FavoritoUsuarioRepository;
 import com.alerta_sp.mvc_user.repository.UsuarioRepository;
-import com.alerta_sp.mvc_user.repository.CorregoRepository;
 import com.alerta_sp.mvc_user.service.FavoritoUsuarioService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,11 +40,18 @@ public class FavoritoUsuarioServiceImpl implements FavoritoUsuarioService {
     @Override
     public void adicionarFavorito(Long idUsuario, Long idCorrego) {
         FavoritoUsuarioId id = new FavoritoUsuarioId(idUsuario, idCorrego);
+
         if (!favoritoRepo.existsById(id)) {
+            Usuario usuario = usuarioRepo.findById(idUsuario)
+                    .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+            Corrego corrego = corregoRepo.findById(idCorrego)
+                    .orElseThrow(() -> new EntityNotFoundException("Córrego não encontrado"));
+
             FavoritoUsuario favorito = new FavoritoUsuario();
             favorito.setId(id);
-            favorito.setUsuario(usuarioRepo.findById(idUsuario).orElseThrow());
-            favorito.setCorrego(corregoRepo.findById(idCorrego).orElseThrow());
+            favorito.setUsuario(usuario);
+            favorito.setCorrego(corrego);
+
             favoritoRepo.save(favorito);
         }
     }

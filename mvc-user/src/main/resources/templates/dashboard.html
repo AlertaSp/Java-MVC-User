@@ -114,11 +114,14 @@
         <h1 style="margin-left: 1rem;" th:text="#{usuario.dashboard.titulo}">Dashboard - Alerta SP</h1>
     </div>
     <nav>
-        <a th:href="@{/dashboard}" th:text="#{menu.dashboard}">Dashboard</a>
-        <a th:href="@{/alertas}" th:text="#{menu.alertas}">Alertas Recebidos</a>
-        <a th:href="@{/favoritos}" th:text="#{menu.favoritos}">Meus Córregos Favoritos</a>
-        <a th:href="@{/templates/meus_dados.html}" th:text="#{menu.meus_dados}">Meus Dados</a>
+        <a th:href="@{/usuario/dashboard}" th:text="#{menu.dashboard}">Dashboard</a>
+        <a th:href="@{/usuario/alertas}" th:text="#{menu.alertas}">Alertas Recebidos</a>
+        <a th:href="@{/usuario/favoritos}" th:text="#{menu.favoritos}">Meus Córregos</a>
+        <a th:href="@{/usuario/dados}" th:text="#{menu.meus_dados}">Meus Dados</a>
     </nav>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn-sair" th:text="#{dashboard.sair}">Sair</button>
+    </form>
     <div class="language-bar">
         🌐 <a th:href="@{'?lang=pt_BR'}">Português</a> |
         <a th:href="@{'?lang=en'}">English</a> |

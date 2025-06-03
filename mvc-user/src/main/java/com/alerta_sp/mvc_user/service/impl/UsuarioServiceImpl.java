@@ -28,4 +28,9 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
         usuarioRepository.save(usuario);
     }
+
+    @Override
+    public boolean emailJaCadastrado(String email) {
+        return usuarioRepository.findByEmail(email).isPresent();
+    }
 }

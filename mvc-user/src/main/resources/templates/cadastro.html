@@ -167,6 +167,17 @@
             <a th:href="@{/usuario/login}" class="btn btn-cancelar" th:text="#{usuario.registro.cancelar}">Cancelar</a>
         </div>
     </form>
+
+    <script>
+        const sucesso = /*[[${sucesso}]]*/ false;
+        if (sucesso) {
+            setTimeout(() => {
+                window.location.href = '/usuario/login';
+            }, 2000);
+        }
+    </script>
+
+
 </div>
 </body>
 </html>

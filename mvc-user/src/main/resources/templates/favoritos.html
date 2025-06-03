@@ -64,6 +64,15 @@
         .btn-voltar {
             background-color: #6c757d;
         }
+
+        .search-bar {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -79,8 +88,13 @@
 <div class="container">
     <h2 th:text="#{usuario.favoritos.subtitulo}">Selecione os córregos que deseja acompanhar:</h2>
 
-    <form th:action="@{/usuario/favoritos/salvar}" method="post">
-        <div class="checkbox-list">
+    <!-- Campo de busca -->
+    <input type="text" id="busca" class="search-bar"
+           th:placeholder="#{usuario.favoritos.buscar}" onkeyup="filtrarCorregos()">
+
+
+    <form id="favoritoForm" th:action="@{/usuario/favoritos/salvar}" method="post">
+        <div class="checkbox-list" id="lista-corregos">
             <label th:each="corrego : ${corregos}">
                 <input type="checkbox" th:name="favoritos" th:value="${corrego.id}" th:checked="${corrego.favorito}">
                 <span th:text="${corrego.nome}">Córrego A</span>
@@ -91,5 +105,28 @@
         <a th:href="@{/usuario/dashboard}" class="btn-voltar" th:text="#{usuario.favoritos.voltar}">Voltar</a>
     </form>
 </div>
+
+<script>
+    function filtrarCorregos() {
+        const filtro = document.getElementById('busca').value.toLowerCase();
+        const labels = document.querySelectorAll('#lista-corregos label');
+        labels.forEach(label => {
+            const nome = label.textContent.toLowerCase();
+            label.style.display = nome.includes(filtro) ? 'block' : 'none';
+        });
+    }
+
+    document.getElementById('favoritoForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const selecionados = document.querySelectorAll('input[type="checkbox"]:checked');
+
+        if (selecionados.length > 0) {
+            alert("Salvo com sucesso!");
+            setTimeout(() => this.submit(), 2000);
+        } else {
+            window.location.href = "/usuario/dashboard";
+        }
+    });
+</script>
 </body>
 </html>
