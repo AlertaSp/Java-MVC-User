@@ -29,6 +29,9 @@ public class Alerta {
     @Column(name = "data_hora", columnDefinition = "TIMESTAMP")
     private LocalDateTime dataHora;
 
+    @Column(nullable = false)
+    private boolean resolvido;
+
     public Alerta() {
         this.status = "ATIVO";
         this.dataHora = LocalDateTime.now();
@@ -52,4 +55,12 @@ public class Alerta {
 
     public LocalDateTime getDataHora() { return dataHora; }
     public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
+
+    public boolean isResolvido() {
+        return resolvido;
+    }
+
+    public void setResolvido(boolean resolvido) {
+        this.resolvido = resolvido;
+    }
 }
