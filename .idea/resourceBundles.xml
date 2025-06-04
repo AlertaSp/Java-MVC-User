@@ -10,6 +10,16 @@
     </custom-resource-bundle>
     <custom-resource-bundle>
       <file value="file://$PROJECT_DIR$/mvc-user/src/main/resources/messages_en.properties" />
+      <file value="file://$PROJECT_DIR$/mvc-user/src/main/resources/messages_pt.properties" />
+      <base-name>messages</base-name>
+    </custom-resource-bundle>
+    <custom-resource-bundle>
+      <file value="file://$PROJECT_DIR$/mvc-user/src/main/resources/messages_en.properties" />
+      <file value="file://$PROJECT_DIR$/mvc-user/src/main/resources/messages_pt.properties" />
+      <base-name>messages</base-name>
+    </custom-resource-bundle>
+    <custom-resource-bundle>
+      <file value="file://$PROJECT_DIR$/mvc-user/src/main/resources/messages_en.properties" />
       <file value="file://$PROJECT_DIR$/mvc-user/src/main/resources/messages_es.properties" />
       <file value="file://$PROJECT_DIR$/mvc-user/src/main/resources/messages_pt.properties" />
       <base-name>messages</base-name>
