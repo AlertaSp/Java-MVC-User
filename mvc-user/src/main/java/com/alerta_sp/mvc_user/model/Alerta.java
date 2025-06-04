@@ -9,7 +9,7 @@ public class Alerta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_alerta")
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -33,8 +33,8 @@ public class Alerta {
     private boolean resolvido;
 
     public Alerta() {
-        this.status = "ATIVO";
-        this.dataHora = LocalDateTime.now();
+        this.dataHora = LocalDateTime.now(); // sempre define a hora atual
+        this.status = "ATIVO";               // define status padrão
     }
 
     // Getters e Setters

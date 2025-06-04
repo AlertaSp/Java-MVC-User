@@ -7,4 +7,5 @@ import java.util.List;
 public interface AlertaRecebidoService {
     List<AlertaRecebidoDTO> listarAlertasRecebidos(Long idUsuario);
     void marcarComoVisto(Long idUsuario, Long idAlerta);
+    List<AlertaRecebidoDTO> listarUltimosAlertasRecebidos(Long idUsuario, int limite); // <-- NOVO
 }

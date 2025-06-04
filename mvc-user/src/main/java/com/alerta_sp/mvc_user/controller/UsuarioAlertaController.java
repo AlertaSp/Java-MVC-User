@@ -1,40 +1,34 @@
 package com.alerta_sp.mvc_user.controller;
 
-import org.springframework.ui.Model;
-import com.alerta_sp.mvc_user.dto.AlertaRecebidoDTO;
+import com.alerta_sp.mvc_user.model.AlertaRecebido;
 import com.alerta_sp.mvc_user.model.Usuario;
+import com.alerta_sp.mvc_user.repository.AlertaRecebidoRepository;
 import com.alerta_sp.mvc_user.repository.UsuarioRepository;
-import com.alerta_sp.mvc_user.service.AlertaRecebidoService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
-@RequestMapping("/usuario")
+@RequestMapping("/usuario/alertas")
 public class UsuarioAlertaController {
 
-    private final AlertaRecebidoService alertaRecebidoService;
+    private final AlertaRecebidoRepository alertaRecebidoRepository;
     private final UsuarioRepository usuarioRepository;
 
-    public UsuarioAlertaController(AlertaRecebidoService alertaRecebidoService,
+    public UsuarioAlertaController(AlertaRecebidoRepository alertaRecebidoRepository,
                                    UsuarioRepository usuarioRepository) {
-        this.alertaRecebidoService = alertaRecebidoService;
+        this.alertaRecebidoRepository = alertaRecebidoRepository;
         this.usuarioRepository = usuarioRepository;
     }
 
-    @GetMapping("/alertas")
-    public String exibirAlertasRecebidos(Model model, Principal principal) {
-        // Obtém o usuário logado via e-mail (principal.getName())
-        Usuario usuario = usuarioRepository.findByEmail(principal.getName())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
-        // Usa o método já implementado
-        List<AlertaRecebidoDTO> alertas = alertaRecebidoService.listarAlertasRecebidos(usuario.getId());
-
-        model.addAttribute("alertas", alertas);
+    @GetMapping
+    public String listarAlertasRecebidos(Model model, @AuthenticationPrincipal Usuario usuario) {
+        List<AlertaRecebido> recebidos = alertaRecebidoRepository.findByUsuarioId(usuario.getId());
+        model.addAttribute("alertas", recebidos.stream().map(AlertaRecebido::getAlerta).toList());
         return "alertas";
     }
 }

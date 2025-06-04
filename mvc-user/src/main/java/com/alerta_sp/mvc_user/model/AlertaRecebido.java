@@ -19,19 +19,41 @@ public class AlertaRecebido {
     @JoinColumn(name = "id_alerta")
     private Alerta alerta;
 
-    @Column(name = "visto", length = 1)
+    @Column(name = "visto", length = 1, nullable = false)
     private String visto = "N"; // 'S' ou 'N'
 
     // Getters e Setters
-    public AlertaRecebidoId getId() { return id; }
-    public void setId(AlertaRecebidoId id) { this.id = id; }
+    public AlertaRecebidoId getId() {
+        return id;
+    }
 
-    public Usuario getUsuario() { return usuario; }
-    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+    public void setId(AlertaRecebidoId id) {
+        this.id = id;
+    }
 
-    public Alerta getAlerta() { return alerta; }
-    public void setAlerta(Alerta alerta) { this.alerta = alerta; }
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-    public String getVisto() { return visto; }
-    public void setVisto(String visto) { this.visto = visto; }
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+        this.id.setIdUsuario(usuario.getId());
+    }
+
+    public Alerta getAlerta() {
+        return alerta;
+    }
+
+    public void setAlerta(Alerta alerta) {
+        this.alerta = alerta;
+        this.id.setIdAlerta(alerta.getId());
+    }
+
+    public String getVisto() {
+        return visto;
+    }
+
+    public void setVisto(String visto) {
+        this.visto = visto;
+    }
 }

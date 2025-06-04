@@ -7,6 +7,8 @@ import com.alerta_sp.mvc_user.service.UsuarioService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
@@ -16,6 +18,18 @@ public class UsuarioServiceImpl implements UsuarioService {
     public UsuarioServiceImpl(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public Usuario autenticar(String email, String senha) {
+        Optional<Usuario> opt = usuarioRepository.findByEmail(email);
+        if (opt.isPresent()) {
+            Usuario usuario = opt.get();
+            if (passwordEncoder.matches(senha, usuario.getSenha())) {
+                return usuario;
+            }
+        }
+        return null;
     }
 
     @Override

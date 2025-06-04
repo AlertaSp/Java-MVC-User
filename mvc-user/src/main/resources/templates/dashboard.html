@@ -82,10 +82,27 @@
             margin-top: 1rem;
         }
 
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #e9ecef;
+        }
+
         @media (max-width: 768px) {
             .menu-toggle {
                 display: flex;
             }
+
             nav {
                 display: none;
                 flex-direction: column;
@@ -93,6 +110,7 @@
                 width: 100%;
                 padding: 1rem;
             }
+
             nav.show {
                 display: flex;
             }
@@ -132,6 +150,28 @@
 <div class="container">
     <h2 th:text="#{usuario.dashboard.boasVindas}">Bem-vindo ao seu painel!</h2>
     <p th:text="#{usuario.dashboard.resumo}">Aqui você verá seus alertas mais recentes e o status dos córregos que acompanha.</p>
+
+    <!-- Lista de alertas recentes -->
+    <h3 th:text="#{usuario.dashboard.ultimosAlertas}">Últimos Alertas Recebidos</h3>
+    <table th:if="${ultimosAlertas != null and !ultimosAlertas.isEmpty()}">
+        <thead>
+        <tr>
+            <th th:text="#{usuario.alertas.dataHora}">Data/Hora</th>
+            <th th:text="#{usuario.alertas.corrego}">Córrego</th>
+            <th th:text="#{usuario.alertas.tipo}">Tipo</th>
+            <th th:text="#{usuario.alertas.mensagem}">Mensagem</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="alerta : ${ultimosAlertas}">
+            <td th:text="${alerta.dataHora}">2025-05-25 14:00</td>
+            <td th:text="${alerta.corrego}">Córrego A</td>
+            <td th:text="${alerta.tipo}">Alerta</td>
+            <td th:text="${alerta.mensagem}">Mensagem</td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:if="${ultimosAlertas == null or ultimosAlertas.isEmpty()}" th:text="#{usuario.dashboard.semAlertas}">Nenhum alerta recebido recentemente.</p>
 </div>
 </body>
 </html>

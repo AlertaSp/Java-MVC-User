@@ -4,10 +4,10 @@ import com.alerta_sp.mvc_user.dto.UsuarioDTO;
 import com.alerta_sp.mvc_user.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.ui.Model;
 
 @Controller
 @RequestMapping("/usuario")
@@ -20,14 +20,17 @@ public class UsuarioAuthController {
     }
 
     @GetMapping("/login")
-    public String exibirLogin() {
-        return "index"; // index.html é o login do usuário
+    public String exibirLogin(@RequestParam(required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("erro", "E-mail ou senha inválidos.");
+        }
+        return "index"; // página de login
     }
 
     @GetMapping("/registro")
     public String exibirRegistro(Model model) {
         model.addAttribute("usuario", new UsuarioDTO());
-        return "cadastro"; // cadastro.html
+        return "cadastro";
     }
 
     @PostMapping("/registro")
@@ -49,5 +52,4 @@ public class UsuarioAuthController {
 
         return "redirect:/usuario/registro";
     }
-
 }

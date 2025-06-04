@@ -1,6 +1,8 @@
 package com.alerta_sp.mvc_user.model;
 
 import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "corrego")
@@ -24,7 +26,10 @@ public class Corrego {
     private Double nivelCritico;
 
     @Transient
-    private boolean favorito; // <-- usado apenas para exibir na view
+    private boolean favorito; // usado somente na view
+
+    @ManyToMany(mappedBy = "corregosFavoritos")
+    private Set<Usuario> usuariosFavoritaram = new HashSet<>();
 
     // Getters e Setters
     public Long getId() { return id; }
@@ -47,4 +52,9 @@ public class Corrego {
 
     public boolean isFavorito() { return favorito; }
     public void setFavorito(boolean favorito) { this.favorito = favorito; }
+
+    public Set<Usuario> getUsuariosFavoritaram() { return usuariosFavoritaram; }
+    public void setUsuariosFavoritaram(Set<Usuario> usuariosFavoritaram) {
+        this.usuariosFavoritaram = usuariosFavoritaram;
+    }
 }

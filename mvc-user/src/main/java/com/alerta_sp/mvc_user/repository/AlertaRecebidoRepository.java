@@ -9,4 +9,5 @@ import java.util.List;
 public interface AlertaRecebidoRepository extends JpaRepository<AlertaRecebido, AlertaRecebidoId> {
     List<AlertaRecebido> findByUsuarioId(Long idUsuario);
     List<AlertaRecebido> findByUsuarioIdAndVisto(Long idUsuario, String visto);
+    List<AlertaRecebido> findTop5ByUsuarioIdOrderByAlerta_DataHoraDesc(Long usuarioId);
 }
