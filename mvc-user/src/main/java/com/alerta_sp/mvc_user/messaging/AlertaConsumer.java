@@ -9,6 +9,7 @@ import com.alerta_sp.mvc_user.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class AlertaConsumer {
@@ -30,8 +31,14 @@ public class AlertaConsumer {
 
     // 📩 Listener ativado por mensagens do RabbitMQ
     @RabbitListener(queues = "${rabbitmq.queue}")
+    @Transactional
     public void consumirAlerta(AlertaMensagemDTO dto) {
         System.out.println("✅ Alerta recebido: " + dto);
+
+        if (dto.getIdCorrego() == null) {
+            System.err.println("❌ Mensagem recebida sem id do córrego: " + dto);
+            return;
+        }
 
         // 1. Buscar córrego
         Corrego corrego = corregoRepository.findById(dto.getIdCorrego())
