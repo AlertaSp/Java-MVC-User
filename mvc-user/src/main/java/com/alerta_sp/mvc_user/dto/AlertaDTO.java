@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 public class AlertaDTO {
     private Long id;
     private Long idCorrego;
+    private String nomeCorrego; // novo campo
     private TipoAlerta tipo;
     private String mensagem;
     private String status;
@@ -18,6 +19,9 @@ public class AlertaDTO {
 
     public Long getIdCorrego() { return idCorrego; }
     public void setIdCorrego(Long idCorrego) { this.idCorrego = idCorrego; }
+
+    public String getNomeCorrego() { return nomeCorrego; }
+    public void setNomeCorrego(String nomeCorrego) { this.nomeCorrego = nomeCorrego; }
 
     public TipoAlerta getTipo() { return tipo; }
     public void setTipo(TipoAlerta tipo) { this.tipo = tipo; }
