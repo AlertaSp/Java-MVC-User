@@ -10,16 +10,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    public static final String ALERTA_QUEUE_USUARIO = "alerta.queue.usuario";
-
-    @Bean
-    public Queue usuarioQueue() {
-        return new Queue(ALERTA_QUEUE_USUARIO, true);
-    }
+    public static final String ALERTA_QUEUE = "alertas.queue";
 
     @Bean
     public Queue alertaQueue() {
-        return new Queue("alertas.queue", true);
+        return new Queue(ALERTA_QUEUE, true);
     }
 
     @Bean
