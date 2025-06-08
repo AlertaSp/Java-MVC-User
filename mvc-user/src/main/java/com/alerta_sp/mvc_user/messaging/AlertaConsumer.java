@@ -55,7 +55,7 @@ public class AlertaConsumer {
         alerta = alertaRepository.save(alerta);
 
         // 3. Buscar usuários que acompanham ou favoritaram este córrego
-        java.util.List<Usuario> usuarios = usuarioRepository.findByCorregos_Id(corrego.getId());
+        java.util.List<Usuario> usuarios = usuarioRepository.findUsuariosByCorrego(corrego.getId());
 
         for (Usuario usuario : usuarios) {
             if (usuario == null) continue;
