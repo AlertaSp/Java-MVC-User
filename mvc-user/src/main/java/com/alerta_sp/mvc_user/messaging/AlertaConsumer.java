@@ -47,7 +47,12 @@ public class AlertaConsumer {
         // 2. Salvar alerta
         Alerta alerta = new Alerta();
         alerta.setMensagem(dto.getMensagem());
-        alerta.setTipo(TipoAlerta.valueOf(dto.getTipo().toUpperCase()));
+
+        String tipo = dto.getTipo() != null
+                ? dto.getTipo().toUpperCase()
+                : "DESCONHECIDO";
+
+        alerta.setTipo(TipoAlerta.valueOf(tipo));
         alerta.setCorrego(corrego);
         alerta.setStatus("ATIVO");
         alerta.setResolvido(false);
