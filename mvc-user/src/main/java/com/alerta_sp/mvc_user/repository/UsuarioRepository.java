@@ -18,4 +18,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
         WHERE c.id = :idCorrego OR fu.corrego.id = :idCorrego
     """)
     java.util.List<Usuario> findUsuariosByCorrego(@Param("idCorrego") Long idCorrego);
+
+    @Query("SELECT DISTINCT u FROM Usuario u JOIN u.corregosFavoritos c WHERE c.id = :idCorrego")
+    java.util.List<Usuario> findByCorregos_Id(@Param("idCorrego") Long idCorrego);
 }
