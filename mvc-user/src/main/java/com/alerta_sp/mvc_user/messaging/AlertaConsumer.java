@@ -54,8 +54,12 @@ public class AlertaConsumer {
 
         alerta = alertaRepository.save(alerta);
 
-        // 3. Buscar usuários que favoritaram este córrego
-        for (Usuario usuario : corrego.getUsuariosFavoritaram()) {
+        // 3. Buscar usuários que acompanham ou favoritaram este córrego
+        java.util.List<Usuario> usuarios = usuarioRepository.findUsuariosByCorrego(corrego.getId());
+
+        for (Usuario usuario : usuarios) {
+            if (usuario == null) continue;
+
             AlertaRecebido recebido = new AlertaRecebido();
             recebido.setUsuario(usuario);
             recebido.setAlerta(alerta);
@@ -65,6 +69,6 @@ public class AlertaConsumer {
             alertaRecebidoRepository.save(recebido);
         }
 
-        System.out.println("📌 Alerta entregue aos usuários favoritos.");
+        System.out.println("📌 Alerta entregue aos usuários que acompanham o córrego.");
     }
 }
