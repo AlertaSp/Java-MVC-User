@@ -30,7 +30,7 @@ public class AlertaConsumer {
     }
 
     // 📩 Listener ativado por mensagens do RabbitMQ
-    @RabbitListener(queues = "alertas.fila")
+    @RabbitListener(queues = "${rabbitmq.queue}")
     @Transactional
     public void consumirAlerta(MensagemAlertaDTO dto) {
         System.out.println("✅ Alerta recebido: " + dto);
