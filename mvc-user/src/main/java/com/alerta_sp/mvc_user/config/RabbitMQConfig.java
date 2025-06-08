@@ -6,15 +6,14 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
 public class RabbitMQConfig {
 
-    public static final String ALERTA_QUEUE = "alertas.queue";
-
     @Bean
-    public Queue alertaQueue() {
-        return new Queue(ALERTA_QUEUE, true);
+    public Queue alertaQueue(@Value("${rabbitmq.queue}") String queueName) {
+        return new Queue(queueName, true);
     }
 
     @Bean
