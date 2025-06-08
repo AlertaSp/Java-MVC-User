@@ -1,6 +1,6 @@
 package com.alerta_sp.mvc_user.messaging;
 
-import com.alerta_sp.mvc_user.dto.AlertaMensagemDTO;
+import com.alerta_sp.mvc_user.dto.MensagemAlertaDTO;
 import com.alerta_sp.mvc_user.model.*;
 import com.alerta_sp.mvc_user.repository.AlertaRecebidoRepository;
 import com.alerta_sp.mvc_user.repository.AlertaRepository;
@@ -30,9 +30,9 @@ public class AlertaConsumer {
     }
 
     // 📩 Listener ativado por mensagens do RabbitMQ
-    @RabbitListener(queues = "${rabbitmq.queue}")
+    @RabbitListener(queues = "alertas.fila")
     @Transactional
-    public void consumirAlerta(AlertaMensagemDTO dto) {
+    public void consumirAlerta(MensagemAlertaDTO dto) {
         System.out.println("✅ Alerta recebido: " + dto);
 
         if (dto.getIdCorrego() == null) {
@@ -47,7 +47,7 @@ public class AlertaConsumer {
         // 2. Salvar alerta
         Alerta alerta = new Alerta();
         alerta.setMensagem(dto.getMensagem());
-        alerta.setTipo(TipoAlerta.valueOf(dto.getNivel().toUpperCase()));
+        alerta.setTipo(TipoAlerta.valueOf(dto.getTipo().toUpperCase()));
         alerta.setCorrego(corrego);
         alerta.setStatus("ATIVO");
         alerta.setResolvido(false);
@@ -55,7 +55,7 @@ public class AlertaConsumer {
         alerta = alertaRepository.save(alerta);
 
         // 3. Buscar usuários que acompanham ou favoritaram este córrego
-        java.util.List<Usuario> usuarios = usuarioRepository.findUsuariosByCorrego(corrego.getId());
+        java.util.List<Usuario> usuarios = usuarioRepository.findByCorregos_Id(corrego.getId());
 
         for (Usuario usuario : usuarios) {
             if (usuario == null) continue;
