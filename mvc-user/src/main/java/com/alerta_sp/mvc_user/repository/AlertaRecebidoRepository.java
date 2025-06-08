@@ -10,4 +10,7 @@ public interface AlertaRecebidoRepository extends JpaRepository<AlertaRecebido, 
     List<AlertaRecebido> findByUsuarioId(Long idUsuario);
     List<AlertaRecebido> findByUsuarioIdAndVisto(Long idUsuario, String visto);
     List<AlertaRecebido> findTop5ByUsuarioIdOrderByAlerta_DataHoraDesc(Long usuarioId);
+
+    // Busca os 5 alertas mais recentes de um usuário usando o campo do ID composto
+    List<AlertaRecebido> findTop5ById_IdUsuarioOrderByAlerta_DataHoraDesc(Long idUsuario);
 }

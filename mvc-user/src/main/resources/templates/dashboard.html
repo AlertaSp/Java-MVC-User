@@ -164,10 +164,10 @@
         </thead>
         <tbody>
         <tr th:each="alerta : ${ultimosAlertas}">
-            <td th:text="${alerta.dataHora}">2025-05-25 14:00</td>
-            <td th:text="${alerta.corrego}">Córrego A</td>
-            <td th:text="${alerta.tipo}">Alerta</td>
-            <td th:text="${alerta.mensagem}">Mensagem</td>
+            <td th:text="${#dates.format(alerta.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
+            <td th:text="${alerta.corrego}"></td>
+            <td th:text="${alerta.tipo}"></td>
+            <td th:text="${alerta.mensagem}"></td>
         </tr>
         </tbody>
     </table>
