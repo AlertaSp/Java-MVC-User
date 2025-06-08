@@ -57,6 +57,7 @@ public class AlertaRecebidoServiceImpl implements AlertaRecebidoService {
                     dto.setStatus(alerta.getAlerta().getStatus());
                     dto.setDataHora(alerta.getAlerta().getDataHora());
                     dto.setVisto(alerta.getVisto());
+                    dto.setCorrego(alerta.getAlerta().getCorrego().getNome());
                     return dto;
                 })
                 .collect(Collectors.toList());
