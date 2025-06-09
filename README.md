@@ -13,7 +13,7 @@
 | 552692    | Luís Henrique Oliveira Da Silva |
 | 554199    | Matheus Duarte Oliveira         |
 
-## 📌 Próximas Atualizações
+## 📌 Links
 
 Link Vídeo Apresentação Java: https://youtu.be/8_yusiZXgJ4
 
