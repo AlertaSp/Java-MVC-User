@@ -15,9 +15,12 @@
 
 ## 📌 Próximas Atualizações
 
-* 🔜 Diagrama UML (\[adicionar link aqui])
-* 🎥 Vídeo de Explicação (\[adicionar link aqui])
-* 🎬 Vídeo Pitch (\[adicionar link aqui])
+Link Vídeo Apresentação Java: https://youtu.be/8_yusiZXgJ4
+
+Link Vídeo Pitch: https://www.youtube.com/watch?v=x8Oygxk1--8
+
+Fique a vontade para cadastrar um novo usuario e testar
+
 
 ## 📌 Descrição Geral
 
